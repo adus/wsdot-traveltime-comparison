@@ -1,0 +1,22 @@
+---
+title: "Travel Time"
+author: "PSU"
+date: "2/18/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+```
+
+## Methods
+Date range of comparison is 2019-02-03 through 2019-03-03.
+Corridors selected are:
+- I-5 NB, Jantzen Beach to Main St.
+- I-205 NB, Airport Way to Padden Parkway
+- I-205 SB, Padden Parkway to Airport Way
