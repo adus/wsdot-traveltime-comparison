@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # History files
 .Rhistory
 .Rapp.history
@@ -46,3 +47,10 @@ po/*~
 
 # User-specified large data files
 data/inrix/
+=======
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user
+data/raw
+>>>>>>> be3e5a8be24014382da4b8a8ce60894c67a1105e
