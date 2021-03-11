@@ -20,3 +20,19 @@ Corridors selected are:
 - I-5 NB, Jantzen Beach to Main St.
 - I-205 NB, Airport Way to Padden Parkway
 - I-205 SB, Padden Parkway to Airport Way
+
+### Data collection
+_INRIX_
+Raw, one minute data were used. For hourly averaged travel time along the corridor, data with a confidence score less than 30 (3% of available data) and C-Value less than 75 and NA were excluded.
+
+
+## Results
+### I-5 NB, Janzten Beach to Main St.
+```{r}
+nb_i5_jantzen_tt_inrix <- readRDS("data/nb_i5_jantzen_tt_inrix.rds")
+nb_i5_jantzen_tt_its <- read.csv("data/portal/i5-jantzen-main-portal.csv", stringsAsFactors = F)
+
+nb_i5_jantzen_tt_its$time <- lubridate::ymd_hms(nb_i5_jantzen_tt_its$time)
+
+```
+
