@@ -53,7 +53,9 @@ nb_i5_jantzen_tt <- nb_i5_jantzen %>%
   group_by(timestamp_hrly) %>%
   summarise(corridor_tt_min = sum(hourly_tt_sec)/60,
             num_segments = n()) %>%
-  filter(num_segments == 13)
+  filter(num_segments == 13) %>%
+  select(datetime = timestamp_hrly, traveltime = corridor_tt_min) %>%
+  mutate(source = "INRIX")
 
 # Save hourly corridor tt df
 saveRDS(nb_i5_jantzen_tt, "data/nb_i5_jantzen_tt_inrix.rds")
