@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(dplyr)
 library(tidyr)
-library(ggplot2)
+library(dygraphs)
 
 ```
 
@@ -33,6 +33,43 @@ nb_i5_jantzen_tt_inrix <- readRDS("data/nb_i5_jantzen_tt_inrix.rds")
 nb_i5_jantzen_tt_its <- read.csv("data/portal/i5-jantzen-main-portal.csv", stringsAsFactors = F)
 
 nb_i5_jantzen_tt_its$time <- lubridate::ymd_hms(nb_i5_jantzen_tt_its$time)
+nb_i5_jantzen_tt_its <- nb_i5_jantzen_tt_its %>%
+  select(datetime = time, traveltime = travel.time) %>%
+  mutate(source = "ITS")
+
+# nb_i5_jantzen_tt <- bind_rows(nb_i5_jantzen_tt_inrix, nb_i5_jantzen_tt_its) %>%
+#   mutate(week = as.character(floor_date(datetime, "week")))
+
+# Create xts for dygraph
+nb_i5_jantzen_tt <- data.frame(
+  datetime = seq(
+    from = as.POSIXct("2019-02-03 00:00:00", tz = "America/Los_Angeles"),
+    to = as.POSIXct("2019-03-03 00:00:00", tz = "America/Los_Angeles"),
+    by = "hour"
+  )
+) %>%
+  left_join(nb_i5_jantzen_tt_its, by = "datetime") %>%
+  select(datetime, ITS = traveltime) %>%
+  left_join(nb_i5_jantzen_tt_inrix, by = "datetime") %>%
+  select(datetime, ITS, INRIX = traveltime)
+
+nb_i5_jantzen_tt <- tibble::column_to_rownames(nb_i5_jantzen_tt, var = "datetime")
+
+nb_i5_jantzen_tt_xts <- as.xts(nb_i5_jantzen_tt)
+
+# Creat figure
+
+dygraph(nb_i5_jantzen_tt_xts)
+
+
+
+fig <- nb_i5_jantzen_tt %>%
+  group_by(week) %>%
+  ggplot(aes(x = datetime, y = traveltime, color = source)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(. ~ week)
+
 
 ```
 
