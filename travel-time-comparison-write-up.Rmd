@@ -23,7 +23,7 @@ Corridors selected are:
 
 ### Data collection
 _INRIX_
-Raw, one minute data were used. For hourly averaged travel time along the corridor, data with a confidence score less than 30 (3% of available data) and C-Value less than 75 and NA were excluded.
+Raw, one minute data were used. For hourly averaged travel time along the corridor, data with a confidence score less than 30 (3% of available data), C-Value less than 75, and NA were excluded.
 
 
 ## Results
@@ -57,19 +57,8 @@ nb_i5_jantzen_tt <- tibble::column_to_rownames(nb_i5_jantzen_tt, var = "datetime
 
 nb_i5_jantzen_tt_xts <- as.xts(nb_i5_jantzen_tt)
 
-# Creat figure
+# Create figure
 
 dygraph(nb_i5_jantzen_tt_xts)
-
-
-
-fig <- nb_i5_jantzen_tt %>%
-  group_by(week) %>%
-  ggplot(aes(x = datetime, y = traveltime, color = source)) +
-  geom_point() +
-  geom_line() +
-  facet_wrap(. ~ week)
-
-
 ```
 
