@@ -108,7 +108,7 @@ nb_i205_airport_tt <- nb_i205_airport %>%
   group_by(timestamp_hrly) %>%
   summarise(corridor_tt_min = sum(hourly_tt_sec)/60,
             num_segments = n()) %>%
-  filter(num_segments == 13) %>%
+  filter(num_segments == 11) %>%
   select(datetime = timestamp_hrly, traveltime = corridor_tt_min) %>%
   mutate(source = "INRIX")
 
@@ -164,7 +164,7 @@ sb_i205_padden_tt <- sb_i205_padden %>%
   group_by(timestamp_hrly) %>%
   summarise(corridor_tt_min = sum(hourly_tt_sec)/60,
             num_segments = n()) %>%
-  filter(num_segments == 13) %>%
+  filter(num_segments == 11) %>%
   select(datetime = timestamp_hrly, traveltime = corridor_tt_min) %>%
   mutate(source = "INRIX")
 
