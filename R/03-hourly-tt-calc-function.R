@@ -1,4 +1,4 @@
-# Calculate hourly traveltime using selected INRIX data
+# Calculate hourly travel time using selected INRIX data using selected_data function from 02-select-data-function
 hourly_tt <- function(data_selected,
                       segment_length) {
   data_selected %>%

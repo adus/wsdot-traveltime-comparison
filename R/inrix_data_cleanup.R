@@ -42,7 +42,7 @@ c_value_hist
 
 ## Filter out c_values < 75 and NA's ----
 nb_i5_jantzen <- nb_i5_jantzen %>%
-  filter(cvalue > 75)
+  filter(cvalue >= 75)
 
 ## Calculate hourly average tt per segment ----
 nb_i5_jantzen_tt <- nb_i5_jantzen %>%
