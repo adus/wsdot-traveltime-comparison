@@ -4,7 +4,7 @@
 # Get list of TMC segments from selected corridor for a specific flow arranged in order going upstream
 # flow_direction can be "NORTHBOUND", "SOUTHBOUND", "EASTBOUND", or "WESTBOUND"
 select_tmcs <- function(inrix_tmc, flow_direction) {
-  its_tmc %>%
+  inrix_tmc %>%
     filter(direction == flow_direction) %>%
     arrange(start_latitude, start_longitude) %>%
     mutate(segment_order = 1:n()) %>%
@@ -16,7 +16,7 @@ select_data <- function(inrix_data,
                         tmcs,
                         conf_score,
                         c_value) {
-  selected_data <-raw_data %>%
+  selected_data <-inrix_data %>%
     filter(tmc_code %in% tmcs$tmc) %>%
     filter(confidence_score %in% conf_score) %>%
     filter(cvalue >= c_value)
@@ -24,7 +24,7 @@ select_data <- function(inrix_data,
 
 # Plot confidence score of data filtered by flow
 conf_dist <- function(inrix_data, tmcs) {
-  raw_data %>%
+  inrix_data %>%
     filter(tmc_code %in% tmcs$tmc) %>%
     ggplot(aes(x = tmc_code, fill = as.character(confidence_score))) +
     geom_bar(stat = "count")
@@ -32,7 +32,7 @@ conf_dist <- function(inrix_data, tmcs) {
 
 # Plot cvalue histogram after selecting confidence score
 cvalue_hist <- function(inrix_data, tmcs, conf_score) {
-  raw_data %>%
+  inrix_data %>%
     filter(tmc_code %in% tmcs$tmc,
            confidence_score %in% conf_score) %>%
     ggplot(aes(x = cvalue)) +
@@ -43,7 +43,7 @@ cvalue_hist <- function(inrix_data, tmcs, conf_score) {
 # Calculate hourly travel time using selected INRIX data using selected_data function from 02-select-data-function
 hourly_inrix_tt <- function(select_inrix_data,
                             segment_length) {
-  select_its_data %>%
+  select_inrix_data %>%
     mutate(timestamp_hrly = floor_date(ymd_hms(measurement_tstamp), "hour")) %>%
     group_by(tmc_code, timestamp_hrly) %>%
     summarise(hourly_tt_sec = mean(travel_time_seconds)) %>%
