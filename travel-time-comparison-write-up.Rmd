@@ -20,15 +20,21 @@ sb_i205_padden_tt_xts <- readRDS("data/sb_i205_padden_tt_xts.rds")
 
 ## Methods
 Date range of comparison is 2019-02-03 through 2019-03-03.
-Corridors selected are:
+Highway corridors selected are:
 - I-5 NB, Jantzen Beach to Main St.
 - I-205 NB, Airport Way to Padden Parkway
 - I-205 SB, Padden Parkway to Airport Way
+- SR 14 EB, MP 1.93 to Ellsworth
+- SR 14 WB, Ellsworth to MP 1.93
+
+TMC segments were approximately selected in relation to selected WSDOT stations (see map).
 
 ### Data collection
 _INRIX_
-Raw, one minute data were used. For hourly averaged travel time along the corridor, data with a confidence score less than 30 (3% of available data), C-Value less than 75, and NA were excluded.
+Raw one minute data were used to calculate travel time along each highway segment and then averaged hourly. Data with a confidence score less than 30, C-Value less than 75, and NAs were excluded. If a TMC segment had missing data then the hourly averaged travel time for that corridor was excluded for that hour.
 
+_WSDOT/PORTAL_
+WSDOT travel time calculations are calculated by PORTAL using raw five minute data, averaged hourly for each station, and then summed for the selected stations along a corridor. If there are missing averaged hourly data at any station along a selected corridor, travel time for that corridor were excluded for that hour.
 
 ## Results
 ### I-5 NB, Janzten Beach to Main St.
