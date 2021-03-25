@@ -16,39 +16,80 @@ library(dygraphs)
 nb_i5_jantzen_tt_xts <- readRDS("data/nb_i5_jantzen_tt_xts.rds")
 nb_i205_airport_tt_xts <- readRDS("data/nb_i205_airport_tt_xts.rds")
 sb_i205_padden_tt_xts <- readRDS("data/sb_i205_padden_tt_xts.rds")
+eb_sr14_mp193_tt_xts <- readRDS("data/eb_sr14_mp193_tt_xts.rds")
+wb_sr14_ellsworth_tt_xts <- readRDS("data/wb_sr14_ellsworth_tt_xts.rds")
+eb_i84_holiday_tt_xts <- readRDS("data/eb_i84_holiday_53rd_xts.rds")
+wb_i84_53rd_tt_xts <- readRDS("data/wb_i84_53rd_holiday_xts.rds")
 ```
+## Purpose
+Compare travel time calculations between PORTAL and INRIX data sources.
 
 ## Methods
 Date range of comparison is 2019-02-03 through 2019-03-03.
 Highway corridors selected are:
+
 - I-5 NB, Jantzen Beach to Main St.
 - I-205 NB, Airport Way to Padden Parkway
 - I-205 SB, Padden Parkway to Airport Way
 - SR 14 EB, MP 1.93 to Ellsworth
 - SR 14 WB, Ellsworth to MP 1.93
+- I-84 EB, Holiday Ramp to 53rd St.
+- I-84 WB, 53rd St to Holiday Ramp
 
 TMC segments were approximately selected in relation to selected WSDOT stations (see map).
 
 ### Data collection
-_INRIX_
+_INRIX_  
 Raw one minute data were used to calculate travel time along each highway segment and then averaged hourly. Data with a confidence score less than 30, C-Value less than 75, and NAs were excluded. If a TMC segment had missing data then the hourly averaged travel time for that corridor was excluded for that hour.
 
-_WSDOT/PORTAL_
-WSDOT travel time calculations are calculated by PORTAL using raw five minute data, averaged hourly for each station, and then summed for the selected stations along a corridor. If there are missing averaged hourly data at any station along a selected corridor, travel time for that corridor were excluded for that hour.
+_WSDOT/PORTAL_  
+Estimated WSDOT travel time calculations are calculated by PORTAL by using the segment length divided by the average speed using five minute data. Estimated hourly travel time is averaged hourly for each station, and then summed for the selected stations along a corridor. The travel time page from PORTAL was used to route selection and data download.
 
 ## Results
 ### I-5 NB, Janzten Beach to Main St.
-```{r nb_i5_janzten, echo = F}
-dygraph(nb_i5_jantzen_tt_xts)
+```{r nb_i5_janzten, echo = F, fig.width=8, fig.height=2.5}
+dygraph(nb_i5_jantzen_tt_xts,
+        ylab = "Travel Time (min)") %>%
+  dyLegend(width = 400)
 ```
 
 ### I-205 NB, Airport Way to Padden Parkway
-```{r nb_i205_airport, echo = F}
-dygraph(nb_i205_airport_tt_xts)
+```{r nb_i205_airport, echo = F, fig.width=8, fig.height=2.5}
+dygraph(nb_i205_airport_tt_xts,
+        ylab = "Travel Time (min)") %>%
+  dyLegend(width = 400)
 ```
 
 ### I-205 SB, Padden Parkway to Airport Way
-```{r sb_i205_padden, echo = F}
-dygraph(sb_i205_padden_tt_xts)
+```{r sb_i205_padden, echo = F, fig.width=8, fig.height=2.5}
+dygraph(sb_i205_padden_tt_xts,
+        ylab = "Travel Time (min)") %>%
+  dyLegend(width = 400)
 ```
 
+### SR-14 WB, Ellsworth to MP 1.93
+```{r wb_sr14_ellsworth, echo = F, fig.width=8, fig.height=2.5}
+dygraph(wb_sr14_ellsworth_tt_xts,
+        ylab = "Travel Time (min)") %>%
+  dyLegend(width = 400)
+```
+
+### SR-14 EB, MP 1.93 to Ellsworth
+```{r eb_sr14_mp193, echo = F, fig.width=8, fig.height=2.5}
+dygraph(eb_sr14_mp193_tt_xts,
+        ylab = "Travel Time (min)") %>%
+  dyLegend(width = 400)
+```
+### I-84 WB, 53rd St to Holiday Ramp
+```{r wb_i84_53rd, echo = F, fig.width=8, fig.height=2.5}
+dygraph(wb_i84_53rd_tt_xts,
+        ylab = "Travel Time (min)") %>%
+  dyLegend(width = 400)
+```
+
+### I-84 EB, Holiday Ramp to 53rd St
+```{r eb_i84_holiday, echo = F, fig.width=8, fig.height=2.5}
+dygraph(eb_i84_holiday_tt_xts,
+        ylab = "Travel Time (min)") %>%
+  dyLegend(width = 400)
+```
