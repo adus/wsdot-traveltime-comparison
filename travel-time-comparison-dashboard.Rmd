@@ -2,7 +2,9 @@
 title: "Travel Time Comparison"
 author: "PSU"
 date: "4/19/2021"
-output: flexdashboard::flex_dashboard
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
 ---
 
 ```{r setup, include=FALSE}
@@ -32,7 +34,7 @@ select_stations <- readRDS("data/select_stations.rds")
 
 ```
 
-Column {.tabset}
+Row
 ----------------------------------------------
 
 ### Project Description
@@ -48,10 +50,10 @@ The following corridors were selected for comparison from 2019-02-03 through 201
 - I-84 EB, Holiday Ramp to 53rd St.
 - I-84 WB, 53rd St to Holiday Ramp
 
-### Highlights & Future Steps
+__Highlights & Future Steps__
 
 
-### Methods
+__Methods__  
 _Data from PORTAL_  
 Estimated WSDOT travel time calculations are calculated by PORTAL by using the segment length divided by the average speed using five minute data. Estimated hourly travel time is averaged hourly for each station, and then summed for the selected stations along a corridor. The travel time page from PORTAL was used to route selection and data download.
 
@@ -85,7 +87,7 @@ tt_segments %>%
 ```
 
 
-Column
+Row {.tabset}
 ----------------------------------------------
 
 ### I-5 NB, Jantzen Beach to Main St
