@@ -24,10 +24,11 @@ eb_i84_holiday_tt_xts <- readRDS("data/eb_i84_holiday_53rd_xts.rds")
 wb_i84_53rd_tt_xts <- readRDS("data/wb_i84_53rd_holiday_xts.rds")
 
 # data for maps
-line_pal <- colorFactor(c("#B983FF", "#00BCD8", "#A3A500", "#F8766D"), domain = c("Eastbound", "Westbound", "Northbound", "Southbound"))
+line_pal <- colorFactor(c("#B983FF", "#00BCD8", "#A3A500", "#F8766D"),
+                        domain = c("Eastbound", "Westbound", "Northbound", "Southbound"))
 
-i5_bridge <- readRDS("data/i5_bridge.rds")
-
+tt_segments <- readRDS("data/tt_segments.rds")
+select_stations <- readRDS("data/select_stations.rds")
 
 ```
 
@@ -61,14 +62,26 @@ Raw one minute data were used to calculate travel time along each highway segmen
 
 ### Map
 ```{r i5_bridge, echo=F}
-i5_bridge %>%
+tt_segments %>%
   leaflet() %>%
   addProviderTiles(providers$CartoDB.Positron) %>%
-  addPolylines(color = ~line_pal(as.factor(Direction)),
+  addPolylines(data = tt_segments,
+               color = ~line_pal(as.factor(Direction)),
                opacity = 1,
-               popup = paste("Segment Name:", i5_bridge$FirstName, "<br>",
-                             "TMC ID:", i5_bridge$Tmc, "<br>",
-                             "Direction:", i5_bridge$Direction))
+               popup = paste("Segment Name:", tt_segments$FirstName, "<br>",
+                             "TMC ID:", tt_segments$Tmc, "<br>",
+                             "Direction:", tt_segments$Direction)) %>%
+  addCircleMarkers(data = select_stations,
+                   lat = ~y_coord,
+                   lng = ~x_coord,
+                   # color = ~pal(on_time_rating),
+                   stroke = F,
+                   fillOpacity = 0.5,
+                   radius = 5,
+                   popup = paste("Location:", select_stations$locationtext, "<br>",
+                                 "Station ID:", select_stations$stationid, "<br>",
+                                 "Mile Post:", select_stations$milepost)
+  )
 ```
 
 
