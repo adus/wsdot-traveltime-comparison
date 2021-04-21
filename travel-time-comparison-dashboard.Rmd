@@ -50,9 +50,13 @@ The following corridors were selected for comparison from 2019-02-03 through 201
 - I-84 EB, Holiday Ramp to 53rd St.
 - I-84 WB, 53rd St to Holiday Ramp
 
-__Highlights & Future Steps__
+__Highlights, Considerations & Future Steps__  
+There is a lot of variability among the various data sources that suggest further analysis is required with the following considerations in mind:  
 
-
+- Length of selected TMC segments aren't a perfect match to the station locations in PORTAL.
+- Compare with 2020 and 2021: new data sources are added each year and may be more accurate.
+- Check travel time calculations using raw data from PORTAL data sources, data used for this study was taken directly from the Travel Time page in PORTAL.
+  
 __Methods__  
 _Data from PORTAL_  
 Estimated WSDOT travel time calculations are calculated by PORTAL by using the segment length divided by the average speed using five minute data. Estimated hourly travel time is averaged hourly for each station, and then summed for the selected stations along a corridor. The travel time page from PORTAL was used to route selection and data download.
